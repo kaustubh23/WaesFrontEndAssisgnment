@@ -1,0 +1,52 @@
+<?page title="new page title" contentType="text/html;charset=UTF-8"?>
+<zk>
+   <window id="listboxdynamic" border="none"
+        apply="org.zkoss.bind.BindComposer"
+     viewModel="@id('vm') @init('mywebapp.app.controller.ListBoxDynamicVM')">
+     <custom-attributes listenKeys="willlistenforKeys" />
+      <separator />
+     <button label="Template 1" onClick="@command('onTemplate',type='simple')"></button>
+     <space></space>
+     <button label="Template 2" onClick="@command('onTemplate',type='simple2')"></button>
+        <space></space>
+     <button label="Template 3" onClick="@command('onTemplate',type='simple3')"></button>
+        <space></space>
+     <separator></separator>
+     <div children="@load('1') @template(vm.templatetype)">
+            <template name="simple">
+              <listbox id="" mold="paging"
+                 model="@load(vm.persons)">
+                   <listhead sizable="true">
+                     <listheader label="First Name" />
+                     <listheader label="Last Name" />
+                  </listhead>
+                   <template name="model" var="p1">
+                      <listitem>
+                            <listcell label="@load(p1.firstName)" />
+                          <listcell label="@load(p1.lastName)" />
+                       </listitem>
+                   </template>
+               </listbox>
+            </template>
+           <template name="simple2">
+             <listbox id="" mold="paging"
+                 model="@load(vm.persons)">
+                   <listhead sizable="true">
+                     <listheader label="First Name" />
+                     <listheader label="Last Name" />
+                      <listheader label="Address1" />
+                   </listhead>
+                   <template name="model" var="p1">
+                      <listitem>
+                            <listcell label="@load(p1.firstName)" />
+                          <listcell label="@load(p1.lastName)" />
+                           <listcell label="@load(p1.address1)" />
+                       </listitem>
+                   </template>
+               </listbox>
+            </template>
+             
+           <template name="simple3">3333</template>
+        </div>
+    </window>
+</zk>

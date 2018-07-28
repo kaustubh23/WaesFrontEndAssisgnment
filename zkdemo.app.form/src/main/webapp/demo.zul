@@ -1,0 +1,75 @@
+<window title="Sign up" width="600px" border="normal"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('mywebapp.app.controller.SearchController')">
+
+	<grid>
+
+		<rows>
+
+			<row>
+				User Name:
+				<textbox id="userNameTextbox" value="@bind(vm.userName)"
+					constraint="no empty" />
+			</row>
+			<row>
+				Post Title:
+				<textbox id="postTitleTextbox"
+					value="@bind(vm.postTitle)" constraint="no empty" />
+			</row>
+			<row>
+				Views:
+				<textbox id="viewsTextbox" value="@bind(vm.views)"
+					constraint="no empty" />
+			</row>
+			<row>
+				Likes:
+				<textbox id="likesTextbox" value="@bind(vm.likes)"
+					constraint="no empty" />
+			</row>
+		</rows>
+
+	</grid>
+
+	<!-- <button id="searchButton"  label="Submit" /> -->
+	<button id="searchButton" onClick="@command('onAddNew')"
+		label="Submit" />
+	<hlayout>
+		<!-- <div apply="org.zkoss.bind.BindComposer"
+			viewModel="@id('vm') @init('mywebapp.app.controller.SearchController')"> -->
+		<auxhead>
+			<auxheader colspan="3" class="topic">
+				Contributor List
+			</auxheader>
+		</auxhead>
+		<listbox id="demoGrid" model="@load(vm.allUserData)"
+			mold="paging" pageSize="10" visible="@bind(vm.visible)">
+
+			<listhead>
+				<listheader label="Id" onClick="@command('sortByID')" />
+				<listheader label="User Name"
+					onClick="@command('sortByUserName')" />
+				<listheader label="Post Title"
+					onClick="@command('sortByProfileTitle')" width="20%" />
+				<listheader label="Views"
+					onClick="@command('sortByViews')" width="10%" />
+				<listheader label="Likes"
+					onClick="@command('sortByLikes')" width="10%" />
+				<listheader label="Created at"
+					onClick="@command('sortByUserName')" width="40%" />
+			</listhead>
+			<template name="model" var="item">
+				<listitem>
+					<listcell label="${item.id}"></listcell>
+					<listcell label="${item.userName}"></listcell>
+					<listcell label="${item.postTitle}"></listcell>
+					<listcell label="${item.views}"></listcell>
+					<listcell label="${item.likes}"></listcell>
+					<listcell label="${item.createdAt}"></listcell>
+
+
+				</listitem>
+			</template>
+		</listbox>
+	</hlayout>
+
+</window>

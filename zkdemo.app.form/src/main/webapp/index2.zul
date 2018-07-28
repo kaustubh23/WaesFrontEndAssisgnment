@@ -1,0 +1,21 @@
+<window title="Example for ZK MVVM List Box" width="500px"
+   apply="org.zkoss.bind.BindComposer"
+ viewModel="@id('vm') @init('mywebapp.app.controller.ListBox1')">
+ <label value="You are using: ${desktop.webApp.version}" />
+    <separator></separator>
+ <listbox model="@load(vm.allPersons)">
+        <listhead sizable="true">
+         <listheader label="First Name" sortDirection="ascending"
+             sort="auto(firstName)" />
+            <listheader label="Last Name" sort="auto(lastName)" />
+            <listheader label="Email" sort="auto(email)" />
+       </listhead>
+       <template name="model" var="p1">
+          <listitem>
+                <listcell label="@load(p1.firstName)" />
+              <listcell label.="@load(p1.lastName)" />
+               <listcell label="@load(p1.email)" />
+          </listitem>
+       </template>
+   </listbox>
+</window>

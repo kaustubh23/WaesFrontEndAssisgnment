@@ -1,0 +1,61 @@
+<zk>
+  <style>
+       .z-label { display:block; } tr.z-row td.z-row-inner { padding:
+      2px 5px; } .z-row-cnt, .z-column-cnt { text-align: center; }
+ 
+    </style>
+  <div apply="org.zkoss.bind.BindComposer"
+     viewModel="@id('vm') @init('mywebapp.app.controller.InlineEditingViewModel')">
+      <separator></separator>
+     <separator></separator>
+     <button onClick="@command('onAddNew')" label="Add New" />
+     <separator></separator>
+     <listbox id="demoGrid"
+           model="@load(vm.allBooks) @template((vm.displayEdit and each.editingStatus) ? 'editable' : 'noneditable')">
+          <listhead sizable="true">
+             <listheader label="Title" />
+              <listheader label="Author" />
+             <listheader visible="@load(vm.displayEdit)" />
+                <listheader visible="@load(vm.displayEdit)" />
+            </listhead>
+           <template name="editable">
+                <listitem>
+                    <listcell>
+                        <textbox cols="60" id="titletext"
+                            value="@load(each.title) @save(each.title, before='confirm')" />
+                 </listcell>
+                   <listcell>
+                        <textbox
+                         value="@load(each.author) @save(each.author, before='confirm')" />
+                   </listcell>
+                   <listcell>
+                        <div>
+                         <button image="pencil-small.png"
+                             onClick="@command('confirm', currentBook=each)" />
+                           <button image="cross-small.png"
+                              onClick="@command('changeEditableStatus', currentBook=each )" />
+                     </div>
+                    </listcell>
+               </listitem>
+           </template>
+           <template name="noneditable">
+             <listitem>
+                    <listcell>
+                        <label value="@load(each.title)" />
+                   </listcell>
+                   <listcell>
+                        <label value="@load(each.author)" />
+                  </listcell>
+                   <listcell>
+                        <button image="pencil-small.png"
+                         onClick="@command('changeEditableStatus', currentBook=each )" />
+                 </listcell>
+                   <listcell>
+                        <button image="DeleteRecord.png"
+                         onClick="@command('onDelete', currentBook=each )" />
+                 </listcell>
+               </listitem>
+           </template>
+       </listbox>
+    </div>
+</zk>
