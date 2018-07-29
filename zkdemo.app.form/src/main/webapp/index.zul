@@ -1,8 +1,83 @@
-<zk>
-	<window apply="org.zkoss.bind.BindComposer"
-		viewModel="@id('vm')@init('mywebapp.app.model.MyViewModel')"
-		validationMessages="@id('vmsgs')">
-		<hlayout>count: <label value="@load(vm.count)" /></hlayout>
-		<button label="add" onClick="@command('cmd')"/>
-	</window>
+<zk xmlns:w="client"> 
+<script type="text/javascript" src="/widgets/effects/form_effect/jquery.watermarkinput.js" />
+
+<window title="Sign up"   width="100%" height="100%"
+	apply="org.zkoss.bind.BindComposer"
+	viewModel="@id('vm') @init('mywebapp.app.controller.SearchController')">
+	<style src="/css/style.css" />
+<hbox >
+	<grid>
+		<rows>
+			<row>
+				User Name:
+				<textbox id="userNameTextbox" name="userName" value="@bind(vm.user.userName)"
+				maxlength="20" w:onBind="jq(this).Watermark('User Name','gray')"	constraint="no empty"   />
+			</row>
+			<row>
+				Post Title:
+				<textbox id="postTitleTextbox"
+				maxlength="50" name="postTitle"	value="@bind(vm.user.postTitle)" w:onBind="jq(this).Watermark('Post Title','gray')" constraint="no empty" />
+			</row>
+			<row> 
+				Views:
+				<intbox id="viewsTextbox" name="views" value="@bind(vm.user.views)"  
+				w:onBind="jq(this).Watermark('Views','gray')"	constraint="no empty,no negative"/> 
+                  
+				</row>
+			<row>
+				Likes:
+				<intbox id="likesTextbox" name="likes" value="@bind(vm.user.likes)" 
+				w:onBind="jq(this).Watermark('Likes','gray')"	constraint="no empty,no negative" />
+			</row>
+			<row>
+					<button  id="submitButton"  onClick="@command('onAddNew')"
+		label="Submit" />
+			</row>
+		</rows>
+
+	</grid>
+
+ <separator  />
+
+
+
+	<vbox>
+	<textbox id="search" name="searchBox"  value="@bind(vm.user.searchByuserName)"
+				w:onBind="jq(this).Watermark('User Name','gray')"	 visible="@bind(vm.visible)" onChange="@command('onClear')" />
+	<button id="searchButton" onClick="@command('onSearch')"
+		label="Filter User"  visible="@bind(vm.visible)"/>
+			
+	<listbox id="demoGrid" model="@load(vm.allUserData)" mold="paging"
+		pageSize="5" visible="@bind(vm.visible)" >
+
+
+		<listhead>
+			<listheader label="Id" onClick="@command('sortByID')" align="center" width="8%" />
+			<listheader label="User Name" align="center" width="20%"
+				onClick="@command('sortByUserName')" />
+			<listheader label="Post Title" width="20%" align="center"
+				onClick="@command('sortByProfileTitle')" />
+			<listheader label="Views" align="center" onClick="@command('sortByViews')"
+				width="12%" />
+			<listheader label="Likes" align="center" onClick="@command('sortByLikes')"
+				width="12%" />
+			<listheader label="Created at"
+				onClick="@command('sortByUserName')" align="center" width="40%" />
+		</listhead>
+		<template name="model" var="item">
+			<listitem sclass="@load(item.active eq 1 ?'inactive':'')">
+				<listcell label="${item.id}"></listcell>
+				<listcell label="${item.userName}"></listcell>
+				<listcell label="${item.postTitle}"></listcell>
+				<listcell label="${item.views}"></listcell>
+				<listcell label="${item.likes}"></listcell>
+				<listcell label="${item.createdAt}"></listcell>
+
+
+			</listitem>
+		</template>
+	</listbox>
+	</vbox>
+</hbox>
+</window>
 </zk>

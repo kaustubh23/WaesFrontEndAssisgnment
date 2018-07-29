@@ -1,27 +1,19 @@
-package mywebapp.app.controller;
+package mywebapp.app.data;
 
-import java.time.LocalDate;
-
-public class User {
-	private int id;
-
-	private	String userName;
+public class UserInfo {
+	
+	public UserInfo(String userName, String postTitle, int views, int likes){
+		this.userName=userName;
+		this.postTitle=postTitle;
+		this.views=views;
+		this.likes=likes;
+	}
+	
+	private String userName;
 	private String postTitle;
 	private int views;
 	private int likes;
-	private LocalDate createdAt;
-	public int getId() {
-		return id;
-	}
-	public void setId(int id) {
-		this.id = id;
-	}
-	public LocalDate getCreatedAt() {
-		return createdAt;
-	}
-	public void setCreatedAt(LocalDate createdAt) {
-		this.createdAt = createdAt;
-	}
+	
 	public String getUserName() {
 		return userName;
 	}
@@ -46,6 +38,5 @@ public class User {
 	public void setLikes(int likes) {
 		this.likes = likes;
 	}
-	}
 
-
+}

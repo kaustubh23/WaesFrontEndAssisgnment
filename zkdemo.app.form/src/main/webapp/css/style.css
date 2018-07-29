@@ -1,0 +1,6 @@
+@CHARSET "ISO-8859-1";
+ 
+.inactive .z-listcell-content {
+   color: white;
+ background-color: blue ;
+}
